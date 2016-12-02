@@ -1,0 +1,6 @@
+rootProject.name = 'jchess'
+include 'core'
+findProject(':core')?.name = 'jchess-core'
+rootProject.name = 'jchess'
+include 'engine'
+
