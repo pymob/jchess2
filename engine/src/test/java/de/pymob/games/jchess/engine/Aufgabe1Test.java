@@ -1,14 +1,8 @@
 package de.pymob.games.jchess.engine;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.*;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * Labor 'Programmieren' WS2016
@@ -140,6 +134,7 @@ public class Aufgabe1Test {
             for (char spalte = 'A'; spalte <= 'H'; spalte++) {
                 String ort = String.valueOf(spalte) +
                              String.valueOf(zeile);
+                System.out.println(spielfeld.toString());
                 assertTrue("Falsch plazierte Figur auf " + ort,
                         spielfeld.getFigur(ort).isEmpty());
             }

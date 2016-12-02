@@ -5,8 +5,9 @@ import de.pymob.games.jchess.engine.figuren.Figur;
 public abstract class Zelle {
     abstract boolean isOccupied();
     abstract Figur getFigur();
+    public abstract String toString();
 
-    static final Zelle LEERE_ZELLE = new Zelle() {
+    public static final Zelle LEERE_ZELLE = new Zelle() {
         @Override
         boolean isOccupied() {
             return false;
@@ -15,9 +16,13 @@ public abstract class Zelle {
         Figur getFigur() {
             return null;
         }
+        @Override
+        public String toString() {
+            return "";
+        }
     };
 
-    static final class BelegteZelle extends Zelle {
+    public static final class BelegteZelle extends Zelle {
         private final Figur figur;
 
         public BelegteZelle(Figur figur) {
@@ -32,6 +37,11 @@ public abstract class Zelle {
         @Override
         Figur getFigur() {
             return figur;
+        }
+
+        @Override
+        public String toString() {
+            return figur.toString();
         }
     }
 }

@@ -20,6 +20,10 @@ public enum Position {
         return index;
     }
 
+    public int getDeviation(Position to) {
+        return to.getIndex() - this.getIndex();
+    }
+
     public static Position fromIndex(int index) {
         for (Position position : Position.values()) {
             if (position.getIndex() == index) {
