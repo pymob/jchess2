@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public abstract class Figur {
     private final Typ typ;
-    private final Allianz allianz;
+    protected final Allianz allianz;
 
     protected Figur(Typ typ, Allianz allianz) {
         this.typ = typ;

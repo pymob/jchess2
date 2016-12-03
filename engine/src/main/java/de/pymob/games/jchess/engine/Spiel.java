@@ -46,7 +46,6 @@ public class Spiel implements ISpiel {
         Integer deviation = startPosition.getDeviation(endPosition);
         // wäre zug zulässig
         if (!startFigur.getLegaleZuege().contains(deviation)) return false;
-        System.out.println(deviation);
         if (zielZelle.isOccupied()) {
            if (!startFigur.kannSchlagen(deviation)) return false;
         } else {

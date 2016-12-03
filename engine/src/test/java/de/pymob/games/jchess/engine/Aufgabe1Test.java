@@ -140,12 +140,6 @@ public class Aufgabe1Test {
             }
         }
 	}
-
-	@Test
-	public void test_BW() {
-		kannNichtZiehen("D2", "D2,E4,E3,E2,E1,D1,C1,C2,C3,C4", "D2BW", "W");
-
-	}
 	
 	@Test
 	 /* -----------------------------------------
@@ -179,7 +173,7 @@ public class Aufgabe1Test {
 		//-------------------------------------------------------											
 		kannNichtZiehen("D2", "D2,D3,D4,E3,E2,E1,D1,C1,C2,C3", 
 		                "D2BW,D3BW,E3BW,E2BW,E1BW," +
-		                "D1BW,C1BW,C2BW,C3BW", "W");		
+		                "D1BW,C1BW,C2BW,C3BW", "W");
 	}
 
 	

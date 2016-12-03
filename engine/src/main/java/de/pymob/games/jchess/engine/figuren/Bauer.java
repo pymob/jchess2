@@ -4,12 +4,10 @@ import de.pymob.games.jchess.engine.Allianz;
 import de.pymob.games.jchess.engine.Position;
 import de.pymob.games.jchess.engine.Typ;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Bauer extends Figur {
+    private static final List<Integer> zuege = Arrays.asList(7, 8, 9, 16);
 
     public Bauer(Allianz allianz) {
         super(Typ.BAUER, allianz);
@@ -17,7 +15,7 @@ public class Bauer extends Figur {
 
     @Override
     public Collection<Integer> getLegaleZuege() {
-        return Arrays.asList(7, 8, 9, 16);
+        return allianz.calculateMoves(zuege);
     }
 
     @Override
@@ -26,19 +24,27 @@ public class Bauer extends Figur {
         int deviation = from.getDeviation(to);
         if (isZweiVorwaerts(deviation)) {
             // add 8
-            pfad.add(Position.fromIndex(from.getIndex() + 8));
+            pfad.add(Position.fromIndex(from.getIndex() + allianz.applySignum(8)));
         }
         return pfad;
     }
 
     @Override
     public boolean kannBewegen(int differenz) {
-        return differenz == 8 || differenz == 16;
+        if (differenz > 0) {
+            return differenz == 8 || differenz == 16;
+        } else {
+            return differenz == -8 || differenz == -16;
+        }
     }
 
     @Override
     public boolean kannSchlagen(int differenz) {
-        return differenz == 7 || differenz == 9;
+        if (differenz > 0) {
+            return differenz == 7 || differenz == 9;
+        } else {
+            return differenz == -7 || differenz == -9;
+        }
     }
 
     @Override
@@ -47,11 +53,11 @@ public class Bauer extends Figur {
     }
 
     private boolean isEinVorwaerts(int differenz) {
-        return differenz == 8;
+        return Math.abs(differenz) == 8;
     }
 
     private boolean isZweiVorwaerts(int differenz) {
-        return differenz == 16;
+        return Math.abs(differenz) == 16;
     }
 
 }

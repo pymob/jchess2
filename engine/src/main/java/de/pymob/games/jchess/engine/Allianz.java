@@ -1,7 +1,33 @@
 package de.pymob.games.jchess.engine;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 public enum  Allianz {
-    WEISS('W'), SCHWARZ('S');
+    WEISS('W') {
+        @Override
+        public Collection<Integer> calculateMoves(Collection<Integer> baseMoves) {
+            return baseMoves;
+        }
+
+        @Override
+        public int applySignum(int to) {
+            return to;
+        }
+    }, SCHWARZ('S') {
+        @Override
+        public Collection<Integer> calculateMoves(Collection<Integer> baseMoves) {
+            return baseMoves.stream()
+                    .mapToInt(this::applySignum)
+                    .boxed()
+                    .collect(Collectors.toList());
+        }
+
+        @Override
+        public int applySignum(int to) {
+            return -to;
+        }
+    };
 
     private final char wert;
 
@@ -9,6 +35,8 @@ public enum  Allianz {
         this.wert = wert;
     }
 
+    public abstract Collection<Integer> calculateMoves(Collection<Integer> baseMoves);
+    public abstract int applySignum(int to);
     public String getWert() {
         return wert + "";
     }
