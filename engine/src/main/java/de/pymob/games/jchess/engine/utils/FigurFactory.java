@@ -4,6 +4,7 @@ import de.pymob.games.jchess.engine.Allianz;
 import de.pymob.games.jchess.engine.Typ;
 import de.pymob.games.jchess.engine.figuren.Bauer;
 import de.pymob.games.jchess.engine.figuren.Figur;
+import de.pymob.games.jchess.engine.figuren.Koenig;
 
 public final class FigurFactory {
     private FigurFactory() {}
@@ -13,7 +14,7 @@ public final class FigurFactory {
             case BAUER:
                 return new Bauer(allianz);
             case KOENIG:
-                break;
+                return new Koenig(allianz);
             case DAME:
                 break;
             case SPRINGER:
