@@ -4,9 +4,7 @@ import de.pymob.games.jchess.engine.figuren.Figur;
 
 import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.Map;
-
-import static de.pymob.games.jchess.engine.utils.Parser.position;
+import java.util.Map.Entry;
 
 public class Spielfeld {
     private final EnumMap<Position, Zelle> map;
@@ -17,9 +15,7 @@ public class Spielfeld {
                 .forEach(position -> map.put(position, Zelle.LEERE_ZELLE));
     }
 
-    public Zelle get(String pos) {
-        return map.get(position(pos));
-    }
+    public Zelle get(Position pos) { return map.get(pos);}
 
     public void add(Position key, Figur value) {
         map.put(key, new Zelle.BelegteZelle(value));
@@ -27,7 +23,7 @@ public class Spielfeld {
 
     public boolean isFigurVomGegner(Position position, Allianz aktuellerSpieler) {
         Zelle zelleAnPosition = map.get(position);
-        return (zelleAnPosition != Zelle.LEERE_ZELLE) &&
+        return (zelleAnPosition.isOccupied()) &&
                 (!zelleAnPosition.getFigur().getAllianz().equals(aktuellerSpieler));
     }
 
@@ -55,7 +51,7 @@ public class Spielfeld {
 
     public Figur[][] toArray() {
         Figur[][] figuren = new Figur[8][8];
-        for (Map.Entry<Position, Zelle> entry : map.entrySet()) {
+        for (Entry<Position, Zelle> entry : map.entrySet()) {
             int index = entry.getKey().getIndex();
             figuren[index / 8][index % 8] = entry.getValue().getFigur();
         }
@@ -66,4 +62,5 @@ public class Spielfeld {
     public String toString() {
         return map.toString();
     }
+
 }

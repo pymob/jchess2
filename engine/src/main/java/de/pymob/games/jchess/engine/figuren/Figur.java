@@ -1,6 +1,7 @@
 package de.pymob.games.jchess.engine.figuren;
 
 import de.pymob.games.jchess.engine.Allianz;
+import de.pymob.games.jchess.engine.Position;
 import de.pymob.games.jchess.engine.Typ;
 
 import java.util.Collection;
@@ -15,6 +16,10 @@ public abstract class Figur {
     }
 
     public abstract Collection<Integer> getLegaleZuege();
+    public abstract Collection<Position> getPfad(Position from, Position to);
+    public abstract boolean kannBewegen(int differenz);
+    public abstract boolean kannSchlagen(int differenz);
+    public abstract boolean kannSpringen();
 
     public Typ getTyp() {
         return typ;
@@ -24,9 +29,9 @@ public abstract class Figur {
         return allianz;
     }
 
-
     @Override
     public String toString() {
         return typ.getWert() + "" + allianz.getWert();
     }
+
 }

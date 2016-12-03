@@ -26,18 +26,40 @@ public class Spiel implements ISpiel {
     }
 
     public String getFigur(String pos) {
-        return spielfeld.get(pos).toString();
+        return spielfeld.get(position(pos)).toString();
     }
 
     public boolean ziehe(String startpos, String zielpos) {
+        Position startPosition = position(startpos);
+        Position endPosition = position(zielpos);
+        Zelle startZelle = spielfeld.get(startPosition);
+        Zelle zielZelle = spielfeld.get(endPosition);
         // Vorbedingungen
-        if (!spielfeld.get(startpos).isOccupied()) return false;
-        if (spielfeld.isFigurVomGegner(position(zielpos), spieler)) return false;
-        Figur startFigur = spielfeld.get(startpos).getFigur();
-        Integer deviation = position(startpos).getDeviation(position(zielpos));
+        // ist start belegt
+        if (!startZelle.isOccupied()) return false;
+        // ist ziel gegner-figur oder leer
+        if (zielZelle.isOccupied() &&
+                !spielfeld.isFigurVomGegner(endPosition, spieler)) return false;
+        Figur startFigur = startZelle.getFigur();
+        // ist start figur vom aktuellen Spieler
+        if (!startFigur.getAllianz().equals(spieler)) return false;
+        Integer deviation = startPosition.getDeviation(endPosition);
+        // wäre zug zulässig
         if (!startFigur.getLegaleZuege().contains(deviation)) return false;
+        System.out.println(deviation);
+        if (zielZelle.isOccupied()) {
+           if (!startFigur.kannSchlagen(deviation)) return false;
+        } else {
+            if (!startFigur.kannBewegen(deviation)) return false;
+        }
+        // pfad prüfen, ob wer im Weg steht
+        if (!startFigur.kannSpringen()) {
+            for (Position position : startFigur.getPfad(startPosition, endPosition)) {
+                if (spielfeld.get(position).isOccupied()) return false;
+            }
+        }
         // legaler Zug
-        spielfeld.bewegeFigur(position(startpos), position(zielpos));
+        spielfeld.bewegeFigur(startPosition, endPosition);
         return true;
     }
 

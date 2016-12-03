@@ -141,6 +141,11 @@ public class Aufgabe1Test {
         }
 	}
 
+	@Test
+	public void test_BW() {
+		kannNichtZiehen("D2", "D2,E4,E3,E2,E1,D1,C1,C2,C3,C4", "D2BW", "W");
+
+	}
 	
 	@Test
 	 /* -----------------------------------------
