@@ -27,6 +27,21 @@ public class Spielfeld {
                 (!zelleAnPosition.getFigur().getAllianz().equals(aktuellerSpieler));
     }
 
+    public boolean isErreichbar(Position testPosition) {
+        Zelle zelle = map.get(testPosition);
+        if (!zelle.isOccupied()) return false;
+        for (Entry<Position, Zelle> entry : map.entrySet()) {
+            if (entry.getValue().isOccupied()) {
+                Figur figur = entry.getValue().getFigur();
+                if (isFigurVomGegner(entry.getKey(), figur.getAllianz()) &&
+                        figur.kannSchlagen(testPosition.getDeviation(entry.getKey()))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Setzt eine Figur um.
      * @param start Position der ziehenden Figur
@@ -63,4 +78,7 @@ public class Spielfeld {
         return map.toString();
     }
 
+    public void set(Position position, Figur figur) {
+        map.put(position, new Zelle.BelegteZelle(figur));
+    }
 }

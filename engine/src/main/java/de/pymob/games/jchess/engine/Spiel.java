@@ -57,8 +57,15 @@ public class Spiel implements ISpiel {
                 if (spielfeld.get(position).isOccupied()) return false;
             }
         }
+        // schach regel
+        Figur replaced = spielfeld.bewegeFigur(startPosition, endPosition);
+        if (spielfeld.isErreichbar(startPosition)) {
+            spielfeld.bewegeFigur(endPosition, startPosition);
+            spielfeld.set(endPosition, replaced);
+            return false;
+        }
         // legaler Zug
-        spielfeld.bewegeFigur(startPosition, endPosition);
+        //spielfeld.bewegeFigur(startPosition, endPosition);
         return true;
     }
 
